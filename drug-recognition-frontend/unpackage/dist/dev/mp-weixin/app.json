@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/camera/camera",
+    "pages/result/result"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "药品识别助手",
+    "navigationBarBackgroundColor": "#667eea",
+    "backgroundColor": "#F8F8F8"
+  },
+  "permission": {
+    "scope.camera": {
+      "desc": "用于拍摄药品照片进行识别"
+    }
+  },
+  "usingComponents": {}
+}

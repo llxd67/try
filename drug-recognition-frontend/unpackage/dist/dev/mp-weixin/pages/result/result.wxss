@@ -1,0 +1,186 @@
+
+.result-container.data-v-b615976f {
+  padding: 40rpx;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+.status-bar.data-v-b615976f {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+.status-title.data-v-b615976f {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+}
+.confidence.data-v-b615976f {
+  font-size: 24rpx;
+  color: #666666;
+  background: #e8f5e8;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+}
+.drug-card.data-v-b615976f {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+.card-header.data-v-b615976f {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #e0e0e0;
+}
+.drug-name.data-v-b615976f {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  flex: 1;
+  margin-right: 20rpx;
+}
+.status-badge.data-v-b615976f {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: bold;
+}
+.status-badge.success.data-v-b615976f {
+  background: #e8f5e8;
+  color: #4CAF50;
+}
+.drug-details.data-v-b615976f {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+.detail-item.data-v-b615976f {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+.item-header.data-v-b615976f {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+}
+.icon.data-v-b615976f {
+  font-size: 28rpx;
+}
+.label.data-v-b615976f {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #666666;
+}
+.value.data-v-b615976f {
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 1.5;
+  margin-left: 43rpx; /* 对齐文本 */
+}
+.empty-state.data-v-b615976f {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 80rpx 40rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.empty-icon.data-v-b615976f {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: 20rpx;
+}
+.empty-text.data-v-b615976f {
+  display: block;
+  font-size: 32rpx;
+  color: #333333;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+}
+.empty-desc.data-v-b615976f {
+  display: block;
+  font-size: 26rpx;
+  color: #666666;
+}
+.voice-section.data-v-b615976f {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+}
+.section-header.data-v-b615976f {
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.section-title.data-v-b615976f {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 5rpx;
+}
+.section-desc.data-v-b615976f {
+  display: block;
+  font-size: 24rpx;
+  color: #666666;
+}
+.voice-text.data-v-b615976f {
+  font-size: 26rpx;
+  color: #333333;
+  line-height: 1.6;
+}
+.action-buttons.data-v-b615976f {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.action-btn.data-v-b615976f {
+  height: 88rpx;
+  border-radius: 44rpx;
+  border: none;
+  font-size: 30rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15rpx;
+}
+.action-btn.primary.data-v-b615976f {
+  background: #4CAF50;
+  color: white;
+}
+.action-btn.secondary.data-v-b615976f {
+  background: #ffffff;
+  color: #333333;
+  border: 2rpx solid #e0e0e0;
+}
+.btn-icon.data-v-b615976f {
+  font-size: 32rpx;
+}
+.debug-info.data-v-b615976f {
+  background: #f8f8f8;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-top: 40rpx;
+  border: 1rpx dashed #cccccc;
+}
+.debug-title.data-v-b615976f {
+  display: block;
+  font-size: 24rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+}
+.debug-content.data-v-b615976f {
+  font-size: 20rpx;
+  color: #999999;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

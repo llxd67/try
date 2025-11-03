@@ -1,0 +1,88 @@
+
+.camera-container.data-v-7b8d50ad {
+  height: 100vh;
+  position: relative;
+}
+.camera.data-v-7b8d50ad {
+  width: 100%;
+  height: 100%;
+}
+.camera-controls.data-v-7b8d50ad {
+  position: absolute;
+  bottom: 200rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.capture-btn.data-v-7b8d50ad {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 8rpx solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.capture-inner.data-v-7b8d50ad {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.status-overlay.data-v-7b8d50ad {
+  position: absolute;
+  top: 100rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.status-box.data-v-7b8d50ad {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20rpx 40rpx;
+  border-radius: 20rpx;
+}
+.status-text.data-v-7b8d50ad {
+  color: #ffffff;
+  font-size: 28rpx;
+  text-align: center;
+}
+.light-indicator.data-v-7b8d50ad {
+  position: absolute;
+  top: 200rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.light-box.data-v-7b8d50ad {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20rpx 40rpx;
+  border-radius: 20rpx;
+}
+.light-box.dark.data-v-7b8d50ad {
+  background: rgba(255, 0, 0, 0.7);
+}
+.light-box.good.data-v-7b8d50ad {
+  background: rgba(0, 255, 0, 0.7);
+}
+.light-text.data-v-7b8d50ad {
+  color: #ffffff;
+  font-size: 24rpx;
+  text-align: center;
+}
+.bottom-controls.data-v-7b8d50ad {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.control-btn.data-v-7b8d50ad {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: none;
+  padding: 20rpx 40rpx;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+}

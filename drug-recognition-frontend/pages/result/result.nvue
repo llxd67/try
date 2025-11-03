@@ -1,0 +1,376 @@
+<template>
+  <div class="result-container">
+    <!-- 药品信息卡片 -->
+    <div class="drug-card" v-if="drugInfo">
+      <div class="card-header">
+        <text class="drug-name">{{ drugInfo.drug_name || '未知药品' }}</text>
+        <text class="confidence">识别置信度: {{ confidence }}%</text>
+      </div>
+      
+      <div class="drug-details">
+        <div class="detail-item" v-if="drugInfo.dosage">
+          <text class="label">用法用量:</text>
+          <text class="value">{{ drugInfo.dosage }}</text>
+        </div>
+        
+        <div class="detail-item" v-if="drugInfo.usage">
+          <text class="label">使用方法:</text>
+          <text class="value">{{ drugInfo.usage }}</text>
+        </div>
+        
+        <div class="detail-item" v-if="drugInfo.expiry_date">
+          <text class="label">有效期:</text>
+          <text class="value">{{ drugInfo.expiry_date }}</text>
+        </div>
+        
+        <div class="detail-item" v-if="drugInfo.manufacturer">
+          <text class="label">生产厂家:</text>
+          <text class="value">{{ drugInfo.manufacturer }}</text>
+        </div>
+        
+        <div class="detail-item" v-if="drugInfo.batch_number">
+          <text class="label">批号:</text>
+          <text class="value">{{ drugInfo.batch_number }}</text>
+        </div>
+        
+        <div class="detail-item" v-if="drugInfo.ingredients">
+          <text class="label">主要成分:</text>
+          <text class="value">{{ drugInfo.ingredients }}</text>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 原始文本 -->
+    <div class="raw-text" v-if="rawText">
+      <text class="section-title">识别文本:</text>
+      <text class="text-content">{{ rawText }}</text>
+    </div>
+    
+    <!-- 操作按钮 -->
+    <div class="action-buttons">
+      <text class="action-btn primary" @tap="readAloud">
+        语音播报
+      </text>
+      
+      <text class="action-btn secondary" @tap="saveResult">
+        保存结果
+      </text>
+      
+      <text class="action-btn secondary" @tap="retakePhoto">
+        重新拍照
+      </text>
+      
+      <text class="action-btn secondary" @tap="shareResult">
+        分享结果
+      </text>
+    </div>
+    
+    <!-- 历史记录 -->
+    <div class="history-section" v-if="history.length > 0">
+      <text class="section-title">最近识别:</text>
+      <div class="history-list">
+        <div class="history-item" v-for="item in history.slice(0, 3)" :key="item.id" @tap="viewHistoryItem(item)">
+          <text class="history-name">{{ item.drugInfo.drug_name || '未知药品' }}</text>
+          <text class="history-time">{{ formatTime(item.timestamp) }}</text>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      drugInfo: null,
+      rawText: '',
+      confidence: 0,
+      history: []
+    }
+  },
+  
+  onLoad(options) {
+    if (options.data) {
+      try {
+        const result = JSON.parse(decodeURIComponent(options.data))
+        this.drugInfo = result.drug_info
+        this.confidence = result.ocr_confidence || 0
+        this.rawText = this.extractRawText(result.drug_info)
+        
+        // 加载历史记录
+        this.loadHistory()
+        
+        // 自动语音播报
+        setTimeout(() => {
+          this.readAloud()
+        }, 1000)
+        
+      } catch (error) {
+        console.error('解析结果数据失败:', error)
+        uni.showToast({
+          title: '数据解析失败',
+          icon: 'error'
+        })
+      }
+    }
+  },
+  
+  methods: {
+    // 提取原始文本
+    extractRawText(drugInfo) {
+      if (!drugInfo) return ''
+      
+      const parts = []
+      if (drugInfo.drug_name) parts.push(drugInfo.drug_name)
+      if (drugInfo.dosage) parts.push(drugInfo.dosage)
+      if (drugInfo.usage) parts.push(drugInfo.usage)
+      if (drugInfo.expiry_date) parts.push(drugInfo.expiry_date)
+      if (drugInfo.manufacturer) parts.push(drugInfo.manufacturer)
+      if (drugInfo.ingredients) parts.push(drugInfo.ingredients)
+      
+      return parts.join(' ')
+    },
+    
+    // 语音播报
+    readAloud() {
+      const text = this.extractRawText(this.drugInfo)
+      if (text) {
+        // 使用系统TTS
+        uni.createInnerAudioContext().play({
+          src: '', // 这里需要集成TTS服务
+          success: () => {
+            console.log('语音播报开始')
+          },
+          fail: (error) => {
+            console.error('语音播报失败:', error)
+            // 如果TTS失败，显示文本
+            uni.showModal({
+              title: '药品信息',
+              content: text,
+              showCancel: false
+            })
+          }
+        })
+      }
+    },
+    
+    // 保存结果
+    saveResult() {
+      const history = uni.getStorageSync('drug_history') || []
+      const newRecord = {
+        id: Date.now(),
+        drugInfo: this.drugInfo,
+        timestamp: new Date().toISOString(),
+        confidence: this.confidence
+      }
+      
+      history.unshift(newRecord)
+      uni.setStorageSync('drug_history', history.slice(0, 50)) // 最多保存50条
+      
+      uni.showToast({
+        title: '保存成功',
+        icon: 'success'
+      })
+      
+      // 刷新历史记录
+      this.loadHistory()
+    },
+    
+    // 加载历史记录
+    loadHistory() {
+      this.history = uni.getStorageSync('drug_history') || []
+    },
+    
+    // 查看历史记录项
+    viewHistoryItem(item) {
+      this.drugInfo = item.drugInfo
+      this.confidence = item.confidence
+      this.rawText = this.extractRawText(item.drugInfo)
+    },
+    
+    // 重新拍照
+    retakePhoto() {
+      uni.navigateBack()
+    },
+    
+    // 分享结果
+    shareResult() {
+      const text = this.extractRawText(this.drugInfo)
+      uni.share({
+        provider: 'weixin',
+        scene: 'WXSceneSession',
+        type: 0,
+        title: '药品识别结果',
+        summary: text,
+        success: () => {
+          uni.showToast({
+            title: '分享成功',
+            icon: 'success'
+          })
+        },
+        fail: (error) => {
+          console.error('分享失败:', error)
+          uni.showToast({
+            title: '分享失败',
+            icon: 'error'
+          })
+        }
+      })
+    },
+    
+    // 格式化时间
+    formatTime(timestamp) {
+      const date = new Date(timestamp)
+      const now = new Date()
+      const diff = now - date
+      
+      if (diff < 60000) { // 1分钟内
+        return '刚刚'
+      } else if (diff < 3600000) { // 1小时内
+        return Math.floor(diff / 60000) + '分钟前'
+      } else if (diff < 86400000) { // 1天内
+        return Math.floor(diff / 3600000) + '小时前'
+      } else {
+        return date.toLocaleDateString()
+      }
+    }
+  }
+}
+</script>
+
+<style>
+.result-container {
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 40rpx;
+}
+
+.drug-card {
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom-width: 2rpx;
+  border-bottom-color: #e0e0e0;
+}
+
+.drug-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10rpx;
+}
+
+.confidence {
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.drug-details {
+  flex-direction: column;
+}
+
+.detail-item {
+  flex-direction: column;
+  margin-bottom: 20rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.raw-text {
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #666666;
+  margin-bottom: 20rpx;
+}
+
+.text-content {
+  font-size: 26rpx;
+  color: #333333;
+  line-height: 1.6;
+}
+
+.action-buttons {
+  flex-direction: column;
+  margin-bottom: 40rpx;
+}
+
+.action-btn {
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  text-align: center;
+  line-height: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.action-btn.primary {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+.action-btn.secondary {
+  background-color: #ffffff;
+  color: #333333;
+  border-width: 2rpx;
+  border-color: #e0e0e0;
+}
+
+.history-section {
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+}
+
+.history-list {
+  flex-direction: column;
+}
+
+.history-item {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom-width: 1rpx;
+  border-bottom-color: #e0e0e0;
+}
+
+.history-item:last-child {
+  border-bottom-width: 0;
+}
+
+.history-name {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.history-time {
+  font-size: 24rpx;
+  color: #666666;
+}
+</style>

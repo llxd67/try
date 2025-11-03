@@ -1,0 +1,73 @@
+
+.container {
+		min-height: 100vh;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		padding: 40rpx;
+}
+.header {
+		text-align: center;
+		margin-top: 100rpx;
+		margin-bottom: 80rpx;
+}
+.logo {
+		height: 120rpx;
+		width: 120rpx;
+		margin-bottom: 30rpx;
+		border-radius: 20rpx;
+}
+.app-title {
+		display: block;
+		font-size: 48rpx;
+		font-weight: bold;
+		color: #ffffff;
+		margin-bottom: 20rpx;
+}
+.app-subtitle {
+		display: block;
+		font-size: 28rpx;
+		color: rgba(255, 255, 255, 0.8);
+}
+.main-content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 80rpx;
+		min-height: 400rpx;
+}
+.start-button {
+		background: rgba(255, 255, 255, 0.95);
+		border-radius: 30rpx;
+		padding: 60rpx 80rpx;
+		text-align: center;
+		box-shadow: 0 12rpx 48rpx rgba(0, 0, 0, 0.15);
+		transition: all 0.3s ease;
+		border: 4rpx solid rgba(255, 255, 255, 0.3);
+		min-width: 400rpx;
+}
+.start-button:active {
+		transform: scale(0.95);
+		box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
+}
+.button-icon {
+		font-size: 80rpx;
+		margin-bottom: 30rpx;
+}
+.button-text {
+		display: block;
+		font-size: 40rpx;
+		font-weight: bold;
+		color: #333333;
+		margin-bottom: 20rpx;
+}
+.button-desc {
+		display: block;
+		font-size: 28rpx;
+		color: #666666;
+}
+.footer {
+		text-align: center;
+}
+.footer-text {
+		font-size: 24rpx;
+		color: rgba(255, 255, 255, 0.7);
+}
